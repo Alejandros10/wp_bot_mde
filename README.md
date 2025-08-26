@@ -26,7 +26,7 @@ Bot for MedellinStyle **extracts external links from a WP group** (YouTube, Band
 ### 1. Clone repo
 
 ```bash
-git clone https://github.com/tuusuario/whatsapp-media-scraper.git
+git clone https://github.com/Alejandros10/wp_bot_mde.git
 ```
 
 ### 2. Set up ENV
