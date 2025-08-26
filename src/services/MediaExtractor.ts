@@ -7,7 +7,12 @@ export class MediaExtractor implements IMediaExtractor {
         /youtube\.com/,
         /youtu\.be/,
         /bandcamp\.com/,
-        /soundcloud\.com/
+        /soundcloud\.com/,
+        /spotify\.com/,
+        /apple\.com/,
+        /deezer\.com/,
+        /discogs\.com/
+        
     ];
     private allowedExtensions = /\.(mp3|mp4)$/;
 

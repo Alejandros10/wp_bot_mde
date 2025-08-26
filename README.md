@@ -1,150 +1,93 @@
-# WhatsApp Media Scraper Bot
+# WhatsApp MedellinStyle Scrapie Bot
 
-Este proyecto es un bot para WhatsApp que **extrae automáticamente enlaces externos** (YouTube, Bandcamp, SoundCloud, MP3/MP4) y archivos multimedia enviados en un grupo específico, y los exporta en formato **JSON** y **XML**.  
-Está desarrollado en **Node.js** siguiendo los principios **SOLID** y **Clean Code**, usa variables de entorno y está preparado para ejecutarse en **Docker**.
-
----
-
-## Características
-
-- **Filtrado inteligente:** Solo guarda enlaces de YouTube, Bandcamp, SoundCloud y archivos MP3/MP4.
-- **Captura archivos multimedia** enviados (audio, video, imágenes).
-- **Exportación automática** a JSON y XML.
-- **Configuración por variables de entorno** (`.env`).
-- **Dockerizado** para facilitar el despliegue.
-- **Arquitectura modular:** SOLID y Clean Code.
+Bot for MedellinStyle **extracts external links from a WP group** (YouTube, Bandcamp, SoundCloud, Spotify, MP3/MP4) and media files sent in a specific group, and exports them in **JSON** and **XML**.
 
 ---
 
-## Requisitos
+## Whatsd do
+
+- **Filters:** Only saves links from YouTube, Bandcamp, SoundCloud, and MP3/MP4 files.
+- **Captures media files** sent (audio, video, images).
+- **Automatic export** to JSON and XML.
+- **Configurable by environment variables** (`.env`).
+
+---
+
+## Requirements
 
 - Node.js >= 18
-- Docker y Docker Compose (opcional, recomendado)
-- WhatsApp activo en tu móvil para escanear el QR la primera vez
+- Docker and Docker Compose*
+- WhatsApp in phone
 
 ---
 
-## Instalación
+## Installation
 
-### 1. Clona el repositorio
+### 1. Clone repo
 
 ```bash
 git clone https://github.com/tuusuario/whatsapp-media-scraper.git
-cd whatsapp-media-scraper
 ```
 
-### 2. Configura tu entorno
+### 2. Set up ENV
 
-Copia el archivo de ejemplo `.env.example` a `.env` y edítalo:
+Example from `.env.example` to `.env`:
+
+GROUP_ID=00000000000000000@g.us  
+JSON_EXPORT_PATH=mde_links.json  
+XML_EXPORT_PATH=mde_links.xml  
+SESSION_PATH=session.json
 
 ```bash
 cp .env.example .env
 ```
 
-Edita `.env` y coloca el **ID de tu grupo** en `GROUP_ID`.
-> Para obtener el ID del grupo, ejecuta el bot y usa el script de ejemplo para listar los grupos y sus IDs en consola.
-
-### 3. Instala las dependencias
+### 3. Install dependencies
 
 ```bash
 npm install
 ```
 
-### 4. Ejecuta el bot (modo local)
+### 4. Run the bot (local)
 
 ```bash
 npm start
 ```
 
-La primera vez deberás escanear el QR con la app de WhatsApp de tu móvil.
+Scan the QR with the WhatsApp app on your phone.
 
 ---
 
-## Uso con Docker
+## Using Docker
 
-### 1. Construye el contenedor
+### 1. Build the container
 
 ```bash
 docker-compose build
 ```
 
-### 2. Inicia el servicio
+### 2. Start the server
 
 ```bash
 docker-compose up
 ```
 
-Escanea el QR en consola para autenticar.
+Scan the QR shown in the console to authenticate.
 
 ---
 
-## ¿Cómo funciona?
+## How do I get the group ID?
 
-1. El bot se conecta a tu WhatsApp Web y escucha los mensajes del grupo configurado.
-2. Filtra solo los enlaces externos de interés y archivos multimedia enviados.
-3. Los resultados se exportan automáticamente a los archivos definidos en `.env` (`media_links.json`, `media_links.xml`).
+To see the IDs:
 
----
-
-## Estructura de archivos
-
-```
-src/
-├── config/
-├── domain/
-├── services/
-├── utils/
-├── app.ts
-.env.example
-Dockerfile
-docker-compose.yml
-README.md
-```
-
----
-
-## Obtener el ID del grupo
-
-Agrega este fragmento al script para listar los grupos y sus IDs:
 ```javascript
 client.on('ready', async () => {
     const chats = await client.getChats();
     chats.forEach(chat => {
         if (chat.isGroup) {
-            console.log(`Nombre: ${chat.name} | ID: ${chat.id._serialized}`);
+            console.log(`Name: ${chat.name} | ID: ${chat.id._serialized}`);
         }
     });
 });
+
 ```
-Copia el ID del grupo que deseas monitorear y pégalo en tu `.env`.
-
----
-
-## Notas importantes
-
-- **Privacidad:** Respeta la privacidad y las normas de uso de WhatsApp.
-- **WhatsApp Web debe estar abierto y autenticado** mientras el bot está en funcionamiento.
-- **No uses este bot para fines comerciales o masivos**; WhatsApp puede bloquear tu número.
-
----
-
-## Contribuciones
-
-¡Las contribuciones son bienvenidas!  
-Abre un issue o PR para sugerencias y mejoras.
-
----
-
-## Licencia
-
-MIT
-
-
-
-
-rd /s /q dist
-
-
-npx tsc
-
-node dist/app.js
